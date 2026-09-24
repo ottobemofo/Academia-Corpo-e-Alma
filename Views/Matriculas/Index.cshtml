@@ -1,0 +1,32 @@
+@model IEnumerable<Matricula>
+@{
+    ViewData["Title"] = "Matrículas";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Matrículas</h1>
+    <a asp-action="Create" class="btn btn-primary">Novo</a>
+</div>
+
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+    <thead><tr><th>Aluno</th><th>Plano</th><th>Data</th><th>Dia pgto</th><th>Último pgto</th><th>Meses em atraso</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(item.Aluno?.Nome)</td>
+            <td>@(item.Plano?.NomePlano)</td>
+            <td>@(item.DataMatricula.ToString("dd/MM/yyyy"))</td>
+            <td>@(item.DiaPagamento)</td>
+            <td>@((item.UltimoPagamento?.ToString("dd/MM/yyyy") ?? "—"))</td>
+            <td>@(item.MesesEmAtraso)</td>
+            <td class="text-end text-nowrap">
+                <a asp-action="Details" asp-route-id="@item.IdMatricula" class="btn btn-sm btn-outline-secondary">Detalhes</a>
+                <a asp-action="Edit" asp-route-id="@item.IdMatricula" class="btn btn-sm btn-outline-primary">Editar</a>
+                <a asp-action="Delete" asp-route-id="@item.IdMatricula" class="btn btn-sm btn-outline-danger">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>

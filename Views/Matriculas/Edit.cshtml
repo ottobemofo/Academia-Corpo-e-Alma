@@ -1,0 +1,12 @@
+@model Matricula
+@{
+    ViewData["Title"] = "Editar - Matrículas";
+}
+<h1 class="h3 mb-3">Editar - Matrículas</h1>
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdMatricula" />
+    <partial name="_Form" />
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

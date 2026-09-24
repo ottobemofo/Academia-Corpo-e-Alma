@@ -1,0 +1,16 @@
+@model Exercicio
+@{
+    ViewData["Title"] = "Excluir - Exercícios";
+}
+<h1 class="h3 mb-3">Excluir este registro?</h1>
+<dl class="row">
+    <dt class="col-sm-3">Exercício</dt>
+    <dd class="col-sm-9">@(Model.NomeExercicio)</dd>
+    <dt class="col-sm-3">Grupo muscular</dt>
+    <dd class="col-sm-9">@(Model.GrupoMuscular)</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdExercicio" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

@@ -1,0 +1,11 @@
+@model FichaTreino
+@{
+    ViewData["Title"] = "Novo - Fichas de treino";
+}
+<h1 class="h3 mb-3">Novo registro - Fichas de treino</h1>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <partial name="_Form" />
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

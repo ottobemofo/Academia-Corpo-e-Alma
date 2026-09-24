@@ -1,0 +1,33 @@
+@model List<Matricula>
+@{
+    ViewData["Title"] = "Painel";
+}
+<h1 class="h3 mb-3">Mensalidades em atraso</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">Nenhuma matrícula em atraso. 🎉</div>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr><th>Aluno</th><th>Plano</th><th>Dia de pagamento</th><th>Último pagamento</th><th>Meses em atraso</th><th></th></tr>
+        </thead>
+        <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Aluno?.Nome</td>
+                <td>@m.Plano?.NomePlano</td>
+                <td>@m.DiaPagamento</td>
+                <td>@(m.UltimoPagamento?.ToString("dd/MM/yyyy") ?? "—")</td>
+                <td><span class="badge text-bg-danger">@m.MesesEmAtraso</span></td>
+                <td class="text-end">
+                    <a asp-controller="Pagamentos" asp-action="Create" asp-route-matriculaId="@m.IdMatricula" class="btn btn-sm btn-success">Registrar pagamento</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

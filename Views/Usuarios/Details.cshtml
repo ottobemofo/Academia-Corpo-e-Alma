@@ -1,0 +1,15 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Detalhes - Usuários";
+}
+<h1 class="h3 mb-3">Detalhes - Usuários</h1>
+<dl class="row">
+    <dt class="col-sm-3">Nome</dt>
+    <dd class="col-sm-9">@(Model.Nome)</dd>
+    <dt class="col-sm-3">E-mail</dt>
+    <dd class="col-sm-9">@(Model.Email)</dd>
+    <dt class="col-sm-3">Perfil</dt>
+    <dd class="col-sm-9">@(Model.Perfil)</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.IdPessoa" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-link">Voltar</a>

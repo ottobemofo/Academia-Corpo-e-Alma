@@ -1,0 +1,25 @@
+@model FichaTreino
+@{
+    ViewData["Title"] = "Detalhes - Fichas de treino";
+}
+<h1 class="h3 mb-3">Detalhes - Fichas de treino</h1>
+<dl class="row">
+    <dt class="col-sm-3">Treino</dt>
+    <dd class="col-sm-9">@(Model.NomeTreino)</dd>
+    <dt class="col-sm-3">Aluno</dt>
+    <dd class="col-sm-9">@(Model.Aluno?.Nome)</dd>
+    <dt class="col-sm-3">Objetivo</dt>
+    <dd class="col-sm-9">@(Model.Objetivo)</dd>
+    <dt class="col-sm-3">Séries</dt>
+    <dd class="col-sm-9">@(Model.Series)</dd>
+    <dt class="col-sm-3">Repetições</dt>
+    <dd class="col-sm-9">@(Model.Repeticoes)</dd>
+    <dt class="col-sm-3">Carga (kg)</dt>
+    <dd class="col-sm-9">@(Model.CargaKg)</dd>
+    <dt class="col-sm-3">Exercícios</dt>
+    <dd class="col-sm-9">@(string.Join(", ", Model.Exercicios.Select(e => e.NomeExercicio)))</dd>
+    <dt class="col-sm-3">Criada em</dt>
+    <dd class="col-sm-9">@(Model.DataCriacao.ToString("dd/MM/yyyy"))</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.IdTreino" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-link">Voltar</a>
