@@ -1,0 +1,32 @@
+@model Matricula
+
+<div class="mb-3">
+    <label asp-for="AlunoId" class="form-label"></label>
+    <select asp-for="AlunoId" asp-items="(SelectList)ViewBag.Alunos" class="form-select">
+        <option value="0">Selecione...</option>
+    </select>
+    <span asp-validation-for="AlunoId" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="PlanoId" class="form-label"></label>
+    <select asp-for="PlanoId" asp-items="(SelectList)ViewBag.Planos" class="form-select">
+        <option value="0">Selecione...</option>
+    </select>
+    <span asp-validation-for="PlanoId" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="DataMatricula" class="form-label"></label>
+    <input asp-for="DataMatricula" type="date" class="form-control" />
+    <span asp-validation-for="DataMatricula" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="DiaPagamento" class="form-label"></label>
+    <input asp-for="DiaPagamento" type="number" class="form-control" />
+    <span asp-validation-for="DiaPagamento" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Observacao" class="form-label"></label>
+    <textarea asp-for="Observacao" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="Observacao" class="text-danger"></span>
+</div>
+<input asp-for="UsuarioId" type="hidden" />

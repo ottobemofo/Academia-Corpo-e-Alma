@@ -1,0 +1,18 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Excluir - Usuários";
+}
+<h1 class="h3 mb-3">Excluir este registro?</h1>
+<dl class="row">
+    <dt class="col-sm-3">Nome</dt>
+    <dd class="col-sm-9">@(Model.Nome)</dd>
+    <dt class="col-sm-3">E-mail</dt>
+    <dd class="col-sm-9">@(Model.Email)</dd>
+    <dt class="col-sm-3">Perfil</dt>
+    <dd class="col-sm-9">@(Model.Perfil)</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdPessoa" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

@@ -1,0 +1,19 @@
+@model Pagamento
+
+<div class="mb-3">
+    <label asp-for="MatriculaId" class="form-label"></label>
+    <select asp-for="MatriculaId" asp-items="(SelectList)ViewBag.Matriculas" class="form-select">
+        <option value="0">Selecione...</option>
+    </select>
+    <span asp-validation-for="MatriculaId" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="DataPagamento" class="form-label"></label>
+    <input asp-for="DataPagamento" type="date" class="form-control" />
+    <span asp-validation-for="DataPagamento" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="ValorPago" class="form-label"></label>
+    <input asp-for="ValorPago" type="text" class="form-control" />
+    <span asp-validation-for="ValorPago" class="text-danger"></span>
+</div>

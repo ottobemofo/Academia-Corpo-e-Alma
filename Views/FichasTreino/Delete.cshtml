@@ -1,0 +1,28 @@
+@model FichaTreino
+@{
+    ViewData["Title"] = "Excluir - Fichas de treino";
+}
+<h1 class="h3 mb-3">Excluir este registro?</h1>
+<dl class="row">
+    <dt class="col-sm-3">Treino</dt>
+    <dd class="col-sm-9">@(Model.NomeTreino)</dd>
+    <dt class="col-sm-3">Aluno</dt>
+    <dd class="col-sm-9">@(Model.Aluno?.Nome)</dd>
+    <dt class="col-sm-3">Objetivo</dt>
+    <dd class="col-sm-9">@(Model.Objetivo)</dd>
+    <dt class="col-sm-3">Séries</dt>
+    <dd class="col-sm-9">@(Model.Series)</dd>
+    <dt class="col-sm-3">Repetições</dt>
+    <dd class="col-sm-9">@(Model.Repeticoes)</dd>
+    <dt class="col-sm-3">Carga (kg)</dt>
+    <dd class="col-sm-9">@(Model.CargaKg)</dd>
+    <dt class="col-sm-3">Exercícios</dt>
+    <dd class="col-sm-9">@(string.Join(", ", Model.Exercicios.Select(e => e.NomeExercicio)))</dd>
+    <dt class="col-sm-3">Criada em</dt>
+    <dd class="col-sm-9">@(Model.DataCriacao.ToString("dd/MM/yyyy"))</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdTreino" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

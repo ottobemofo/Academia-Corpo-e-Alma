@@ -1,0 +1,17 @@
+@model Pagamento
+@{
+    ViewData["Title"] = "Detalhes - Pagamentos";
+}
+<h1 class="h3 mb-3">Detalhes - Pagamentos</h1>
+<dl class="row">
+    <dt class="col-sm-3">Aluno</dt>
+    <dd class="col-sm-9">@(Model.Matricula?.Aluno?.Nome)</dd>
+    <dt class="col-sm-3">Plano</dt>
+    <dd class="col-sm-9">@(Model.Matricula?.Plano?.NomePlano)</dd>
+    <dt class="col-sm-3">Data</dt>
+    <dd class="col-sm-9">@(Model.DataPagamento.ToString("dd/MM/yyyy"))</dd>
+    <dt class="col-sm-3">Valor</dt>
+    <dd class="col-sm-9">@(Model.ValorPago.ToString("C"))</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.IdPagamento" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-link">Voltar</a>

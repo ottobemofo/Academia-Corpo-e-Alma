@@ -1,0 +1,24 @@
+@model Matricula
+@{
+    ViewData["Title"] = "Excluir - Matrículas";
+}
+<h1 class="h3 mb-3">Excluir este registro?</h1>
+<dl class="row">
+    <dt class="col-sm-3">Aluno</dt>
+    <dd class="col-sm-9">@(Model.Aluno?.Nome)</dd>
+    <dt class="col-sm-3">Plano</dt>
+    <dd class="col-sm-9">@(Model.Plano?.NomePlano)</dd>
+    <dt class="col-sm-3">Data</dt>
+    <dd class="col-sm-9">@(Model.DataMatricula.ToString("dd/MM/yyyy"))</dd>
+    <dt class="col-sm-3">Dia pgto</dt>
+    <dd class="col-sm-9">@(Model.DiaPagamento)</dd>
+    <dt class="col-sm-3">Último pgto</dt>
+    <dd class="col-sm-9">@((Model.UltimoPagamento?.ToString("dd/MM/yyyy") ?? "—"))</dd>
+    <dt class="col-sm-3">Meses em atraso</dt>
+    <dd class="col-sm-9">@(Model.MesesEmAtraso)</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdMatricula" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>

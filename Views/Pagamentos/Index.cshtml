@@ -1,0 +1,30 @@
+@model IEnumerable<Pagamento>
+@{
+    ViewData["Title"] = "Pagamentos";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Pagamentos</h1>
+    <a asp-action="Create" class="btn btn-primary">Novo</a>
+</div>
+
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+    <thead><tr><th>Aluno</th><th>Plano</th><th>Data</th><th>Valor</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(item.Matricula?.Aluno?.Nome)</td>
+            <td>@(item.Matricula?.Plano?.NomePlano)</td>
+            <td>@(item.DataPagamento.ToString("dd/MM/yyyy"))</td>
+            <td>@(item.ValorPago.ToString("C"))</td>
+            <td class="text-end text-nowrap">
+                <a asp-action="Details" asp-route-id="@item.IdPagamento" class="btn btn-sm btn-outline-secondary">Detalhes</a>
+                <a asp-action="Edit" asp-route-id="@item.IdPagamento" class="btn btn-sm btn-outline-primary">Editar</a>
+                <a asp-action="Delete" asp-route-id="@item.IdPagamento" class="btn btn-sm btn-outline-danger">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>
