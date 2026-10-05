@@ -1,110 +1,95 @@
-using GestaoAcademia.Data;
-using GestaoAcademia.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using GestaoAcademia.Models;
 
 namespace GestaoAcademia.Controllers;
 
-public class PagamentosController : Controller
+public class PagamentoController : Controller
 {
-    private readonly AppDbContext _db;
-    public PagamentosController(AppDbContext db) => _db = db;
+    private static List<Pagamento> pagamentos =
+        new List<Pagamento>();
 
-    private async Task CarregarMatriculas(int? selecionada = null)
+
+    public ActionResult Index()
     {
-        // Projeção: monta o texto "Aluno — Plano" para o dropdown
-        var lista = await _db.Matriculas
-            .OrderBy(m => m.Aluno!.Nome)
-            .Select(m => new { m.IdMatricula, Texto = m.Aluno!.Nome + " — " + m.Plano!.NomePlano })
-            .ToListAsync();
-        ViewBag.Matriculas = new SelectList(lista, "IdMatricula", "Texto", selecionada);
+        return View(pagamentos);
     }
 
-    public async Task<IActionResult> Index()
+
+    [HttpGet]
+    public ActionResult Create()
     {
-        var lista = await _db.Pagamentos
-            .Include(p => p.Matricula).ThenInclude(m => m!.Aluno)
-            .Include(p => p.Matricula).ThenInclude(m => m!.Plano)
-            .OrderByDescending(p => p.DataPagamento)
-            .ToListAsync();
-        return View(lista);
+        return View();
     }
 
-    public async Task<IActionResult> Details(int? id)
+
+    [HttpPost]
+    public ActionResult Create(Pagamento model)
     {
-        if (id == null) return NotFound();
-        var p = await _db.Pagamentos
-            .Include(x => x.Matricula).ThenInclude(m => m!.Aluno)
-            .Include(x => x.Matricula).ThenInclude(m => m!.Plano)
-            .FirstOrDefaultAsync(x => x.IdPagamento == id);
-        if (p == null) return NotFound();
-        return View(p);
+        model.IdPagamento =
+            pagamentos.Count == 0
+            ? 1
+            : pagamentos.Max(p => p.IdPagamento) + 1;
+
+        pagamentos.Add(model);
+
+        return RedirectToAction("Index");
     }
 
-    // matriculaId opcional: vem do botão "Registrar pagamento" na tela da matrícula
-    public async Task<IActionResult> Create(int? matriculaId)
-    {
-        await CarregarMatriculas(matriculaId);
-        return View(new Pagamento { MatriculaId = matriculaId ?? 0 });
-    }
 
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Pagamento pagamento)
+    [HttpGet]
+    public ActionResult Update(int id)
     {
-        if (!ModelState.IsValid)
+        Pagamento? pagamento =
+            pagamentos.FirstOrDefault(
+                p => p.IdPagamento == id);
+
+        if (pagamento == null)
         {
-            await CarregarMatriculas(pagamento.MatriculaId);
-            return View(pagamento);
+            return NotFound();
         }
-        _db.Pagamentos.Add(pagamento);
-        await _db.SaveChangesAsync();
-        return RedirectToAction("Details", "Matriculas", new { id = pagamento.MatriculaId });
+
+        return View(pagamento);
     }
 
-    public async Task<IActionResult> Edit(int? id)
-    {
-        if (id == null) return NotFound();
-        var p = await _db.Pagamentos.FindAsync(id.Value);
-        if (p == null) return NotFound();
-        await CarregarMatriculas(p.MatriculaId);
-        return View(p);
-    }
 
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Pagamento pagamento)
+    [HttpPost]
+    public ActionResult Update(
+        int id,
+        Pagamento model)
     {
-        if (id != pagamento.IdPagamento) return NotFound();
-        if (!ModelState.IsValid)
+        Pagamento? pagamento =
+            pagamentos.FirstOrDefault(
+                p => p.IdPagamento == id);
+
+        if (pagamento == null)
         {
-            await CarregarMatriculas(pagamento.MatriculaId);
-            return View(pagamento);
+            return NotFound();
         }
-        _db.Update(pagamento);
-        await _db.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+
+        pagamento.IdMatricula =
+            model.IdMatricula;
+
+        pagamento.DataPagamento =
+            model.DataPagamento;
+
+        pagamento.FormaPagamento =
+            model.FormaPagamento;
+
+        return RedirectToAction("Index");
     }
 
-    public async Task<IActionResult> Delete(int? id)
-    {
-        if (id == null) return NotFound();
-        var p = await _db.Pagamentos
-            .Include(x => x.Matricula).ThenInclude(m => m!.Aluno)
-            .Include(x => x.Matricula).ThenInclude(m => m!.Plano)
-            .FirstOrDefaultAsync(x => x.IdPagamento == id);
-        if (p == null) return NotFound();
-        return View(p);
-    }
 
-    [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public ActionResult Delete(int id)
     {
-        var p = await _db.Pagamentos.FindAsync(id);
-        if (p != null)
+        Pagamento? pagamento =
+            pagamentos.FirstOrDefault(
+                p => p.IdPagamento == id);
+
+        if (pagamento != null)
         {
-            _db.Pagamentos.Remove(p);
-            await _db.SaveChangesAsync();
+            pagamentos.Remove(pagamento);
         }
-        return RedirectToAction(nameof(Index));
+
+        return RedirectToAction("Index");
     }
 }

@@ -1,277 +1,355 @@
-/* Cores personalizadas - Laranja */
 :root {
-    --primary-orange: #ff6b35;
-    --primary-orange-dark: #e55a2b;
-    --primary-orange-light: #ff8c5a;
-    --sidebar-bg: #1a1a2e;
-    --sidebar-text: #ffffff;
-    --content-bg: #f8f9fa;
+    --laranja: #ff6b35;
+    --laranja-escuro: #e55a2b;
+    --escuro: #1a1a2e;
+    --fundo: #f4f6f9;
+    --branco: #ffffff;
+    --texto: #333333;
+    --cinza: #6c757d;
+}
+
+
+/* ==============================
+   CONFIGURAÇÕES GERAIS
+   ============================== */
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--content-bg);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: var(--fundo);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--texto);
 }
 
-/* Sidebar */
+
+/* ==============================
+   SIDEBAR
+   ============================== */
+
 .sidebar {
-    background-color: var(--sidebar-bg);
-    min-height: 100vh;
-    color: var(--sidebar-text);
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
+
     width: 250px;
-    padding: 20px 0;
-    z-index: 1000;
+    height: 100vh;
+
+    background: var(--escuro);
+    color: white;
 }
 
 .sidebar-logo {
-    padding: 0 20px 30px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 20px;
+    padding: 25px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-ca {
+    font-size: 32px;
+    font-weight: bold;
+
+    color: var(--laranja);
 }
 
 .sidebar-logo h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--primary-orange);
-    margin: 0;
-}
+    margin-top: 5px;
+    margin-bottom: 0;
 
-.sidebar-logo .logo-ca {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--primary-orange);
-    display: block;
-    margin-bottom: 5px;
+    font-size: 18px;
+    color: white;
 }
 
 .sidebar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar-nav li {
-    padding: 0;
+    padding-top: 15px;
 }
 
 .sidebar-nav a {
     display: block;
-    padding: 12px 20px;
-    color: rgba(255,255,255,0.7);
+
+    padding: 14px 25px;
+
+    color: #d2d2d2;
     text-decoration: none;
-    transition: all 0.3s;
-    border-left: 3px solid transparent;
+
+    border-left: 4px solid transparent;
+
+    transition: 0.2s;
 }
 
-.sidebar-nav a:hover,
-.sidebar-nav a.active {
-    background-color: rgba(255,107,53,0.1);
-    color: var(--primary-orange);
-    border-left-color: var(--primary-orange);
+.sidebar-nav a:hover {
+    background: rgba(255, 107, 53, 0.12);
+
+    color: var(--laranja);
+
+    border-left-color: var(--laranja);
 }
 
-/* Main Content */
+
+/* ==============================
+   CONTEÚDO
+   ============================== */
+
 .main-content {
     margin-left: 250px;
+
     padding: 30px;
+
     min-height: 100vh;
 }
 
-/* Header */
+
+/* ==============================
+   CABEÇALHO
+   ============================== */
+
 .page-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+
+    margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 2px solid var(--primary-orange);
+
+    border-bottom: 2px solid var(--laranja);
 }
 
-.page-title {
-    color: var(--primary-orange);
-    font-weight: bold;
+.page-header h1 {
     margin: 0;
+
+    color: var(--laranja);
+
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.page-description {
-    color: #666;
-    font-size: 0.9rem;
-    margin-top: 5px;
+.page-header span {
+    font-size: 14px;
+
+    color: var(--cinza);
 }
 
-.user-info {
+.page-header .btn {
+    margin-left: 20px;
+}
+
+
+/* ==============================
+   CARDS
+   ============================== */
+
+.row > div {
     display: flex;
-    align-items: center;
-    gap: 15px;
 }
 
-.user-name {
-    color: #333;
-    font-weight: 500;
+.card-custom {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 175px;
+    height: 100%;
+
+    padding: 25px;
+    margin-bottom: 20px;
+
+    background: var(--branco);
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Buttons */
+.card-custom h2 {
+    margin-bottom: 20px;
+
+    font-size: 20px;
+}
+
+/*
+   Faz o botão ficar alinhado na parte
+   inferior dos cards da página inicial.
+*/
+.card-custom .btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+
+/* ==============================
+   BOTÕES
+   ============================== */
+
 .btn-orange {
-    background-color: var(--primary-orange);
-    border-color: var(--primary-orange);
+    background: var(--laranja);
+
     color: white;
+
+    border: none;
 }
 
 .btn-orange:hover {
-    background-color: var(--primary-orange-dark);
-    border-color: var(--primary-orange-dark);
+    background: var(--laranja-escuro);
+
     color: white;
 }
 
 .btn-outline-orange {
-    color: var(--primary-orange);
-    border-color: var(--primary-orange);
+    background: white;
+
+    color: var(--laranja);
+
+    border: 1px solid var(--laranja);
 }
 
 .btn-outline-orange:hover {
-    background-color: var(--primary-orange);
+    background: var(--laranja);
+
     color: white;
 }
 
-/* Tables */
+
+/* ==============================
+   TABELAS
+   ============================== */
+
 .table-custom {
     background: white;
+
     border-radius: 8px;
+
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .table-custom thead {
-    background-color: var(--primary-orange);
+    background: var(--laranja);
+
     color: white;
 }
 
 .table-custom thead th {
+    padding: 14px;
+
+    font-size: 14px;
+
     border: none;
-    padding: 12px 15px;
-    font-weight: 500;
 }
 
-.table-custom tbody tr {
-    border-bottom: 1px solid #eee;
+.table-custom tbody td {
+    padding: 14px;
+
+    vertical-align: middle;
 }
 
 .table-custom tbody tr:hover {
-    background-color: rgba(255,107,53,0.05);
+    background: rgba(255, 107, 53, 0.05);
 }
 
-/* Status badges */
-.status-em-dia {
-    background-color: #28a745;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+
+/* ==============================
+   FORMULÁRIOS
+   ============================== */
+
+.form-card {
+    max-width: 800px;
+
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.status-atrasado {
-    background-color: #dc3545;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+.form-label {
+    font-weight: 600;
 }
 
-.status-atraso {
-    background-color: var(--primary-orange);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+.form-control,
+.form-select {
+    padding: 10px;
+
+    border-radius: 7px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--laranja);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(255, 107, 53, 0.15);
+}
+
+
+/* ==============================
+   STATUS
+   ============================== */
+
+.status-ativo {
+    padding: 5px 12px;
+
+    background: #d4edda;
+
+    color: #198754;
+
+    border-radius: 15px;
+
+    font-size: 13px;
     font-weight: bold;
 }
 
-/* Search box */
-.search-box {
-    position: relative;
-    margin-bottom: 20px;
-}
+.status-inativo {
+    padding: 5px 12px;
 
-.search-box input {
-    padding: 12px 20px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    width: 100%;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
+    background: #f8d7da;
 
-.search-box input:focus {
-    outline: none;
-    border-color: var(--primary-orange);
-}
+    color: #dc3545;
 
-/* Login page */
-.login-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--sidebar-bg) 0%, var(--primary-orange) 100%);
-}
-
-.login-card {
-    background: white;
-    padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 400px;
+
+    font-size: 13px;
+    font-weight: bold;
 }
 
-.login-card h1 {
-    color: var(--primary-orange);
-    text-align: center;
-    margin-bottom: 30px;
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+.home-card {
+    height: 195px;
+    display: flex;
+    flex-direction: column;
 }
 
-.login-card .form-control {
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-}
-
-.login-card .form-control:focus {
-    border-color: var(--primary-orange);
-    box-shadow: 0 0 0 0.2rem rgba(255,107,53,0.25);
-}
-
-/* Forms */
-.form-section {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.form-section h3 {
-    color: var(--primary-orange);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--primary-orange);
-}
-
-/* Alerts */
-.alert-custom {
-    border-radius: 8px;
-    border: none;
-}
-
-.alert-danger {
-    background-color: #fee;
-    color: #c33;
-}
-
-.alert-success {
-    background-color: #efe;
-    color: #3c3;
+.home-card .btn {
+    margin-top: auto;
+    align-self: flex-start;
 }

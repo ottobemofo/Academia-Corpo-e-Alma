@@ -1,0 +1,95 @@
+@using GestaoAcademia.Models
+@model FichaTreino
+
+@{
+    ViewData["Title"] = "Nova Ficha de Treino";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Cadastrar Ficha de Treino
+    </h2>
+
+    <form asp-controller="FichaTreino"
+          asp-action="Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome do Treino
+            </label>
+
+            <input type="text"
+                   name="NomeTreino"
+                   class="form-control"
+                   placeholder="Ex: Treino A - Peito e Tríceps" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Aluno
+            </label>
+
+            <input type="number"
+                   name="IdAluno"
+                   class="form-control"
+                   placeholder="Informe o ID do aluno" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Usuário responsável
+            </label>
+
+            <input type="number"
+                   name="IdUsuario"
+                   class="form-control"
+                   placeholder="Informe o ID do usuário" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Data de Criação
+            </label>
+
+            <input type="date"
+                   name="DataCriacao"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Objetivo
+            </label>
+
+            <input type="text"
+                   name="Objetivo"
+                   class="form-control"
+                   placeholder="Ex: Hipertrofia" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+            Salvar
+        </button>
+
+        <a asp-controller="FichaTreino"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>

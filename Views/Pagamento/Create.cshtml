@@ -1,0 +1,90 @@
+@using GestaoAcademia.Models
+@model Pagamento
+
+@{
+    ViewData["Title"] = "Registrar Pagamento";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Novo Pagamento
+    </h2>
+
+    <form action="/Pagamento/Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Matrícula
+            </label>
+
+            <input type="number"
+                   name="IdMatricula"
+                   class="form-control"
+                   placeholder="Informe o ID da matrícula"
+                   required />
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Data do Pagamento
+            </label>
+
+            <input type="date"
+                   name="DataPagamento"
+                   class="form-control"
+                   required />
+
+        </div>
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Forma de Pagamento
+            </label>
+
+            <select name="FormaPagamento"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="PIX">
+                    PIX
+                </option>
+
+                <option value="Dinheiro">
+                    Dinheiro
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar
+
+        </button>
+
+
+        <a href="/Pagamento/Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

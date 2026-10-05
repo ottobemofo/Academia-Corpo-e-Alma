@@ -1,0 +1,105 @@
+@using GestaoAcademia.Models
+@model Exercicio
+
+@{
+    ViewData["Title"] = "Editar Exercício";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Editar Exercício
+    </h2>
+
+    <form asp-controller="Exercicio"
+          asp-action="Update"
+          asp-route-id="@Model.IdExercicio"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome do Exercício
+            </label>
+
+            <input type="text"
+                   name="NomeExercicio"
+                   value="@Model.NomeExercicio"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Grupo Muscular
+            </label>
+
+            <input type="text"
+                   name="GrupoMuscular"
+                   value="@Model.GrupoMuscular"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Séries
+            </label>
+
+            <input type="number"
+                   name="Series"
+                   value="@Model.Series"
+                   class="form-control"
+                   min="1" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Repetições
+            </label>
+
+            <input type="number"
+                   name="Repeticoes"
+                   value="@Model.Repeticoes"
+                   class="form-control"
+                   min="1" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Carga (kg)
+            </label>
+
+            <input type="number"
+                   name="CargaKg"
+                   value="@Model.CargaKg"
+                   class="form-control"
+                   step="0.01"
+                   min="0" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar alterações
+
+        </button>
+
+        <a asp-controller="Exercicio"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

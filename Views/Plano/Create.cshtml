@@ -1,0 +1,58 @@
+@using GestaoAcademia.Models
+@model Plano
+
+@{
+    ViewData["Title"] = "Cadastrar Plano";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Novo Plano
+    </h2>
+
+    <form asp-controller="Plano"
+          asp-action="Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome do Plano
+            </label>
+
+            <input type="text"
+                   name="NomePlano"
+                   class="form-control"
+                   placeholder="Ex: Todos os dias" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Valor do Plano
+            </label>
+
+            <input type="number"
+                   name="ValorPlano"
+                   class="form-control"
+                   step="0.01"
+                   placeholder="75,00" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+            Salvar
+        </button>
+
+        <a asp-controller="Plano"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>

@@ -1,0 +1,95 @@
+@using GestaoAcademia.Models
+@model Usuario
+
+@{
+    ViewData["Title"] = "Cadastrar Usuário";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Novo Usuário
+    </h2>
+
+    <form asp-controller="Usuarios"
+          asp-action="Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome
+            </label>
+
+            <input type="text"
+                   name="Nome"
+                   class="form-control"
+                   placeholder="Digite o nome" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Email
+            </label>
+
+            <input type="email"
+                   name="Email"
+                   class="form-control"
+                   placeholder="email@exemplo.com" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Senha
+            </label>
+
+            <input type="password"
+                   name="Senha"
+                   class="form-control"
+                   placeholder="Digite a senha" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Perfil
+            </label>
+
+            <select name="Perfil"
+                    class="form-select">
+
+                <option value="Funcionario">
+                    Funcionário
+                </option>
+
+                <option value="Dono">
+                    Dono
+                </option>
+
+            </select>
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar
+
+        </button>
+
+        <a asp-controller="Usuarios"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

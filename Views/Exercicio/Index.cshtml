@@ -1,0 +1,107 @@
+@using GestaoAcademia.Models
+@model List<Exercicio>
+
+@{
+    ViewData["Title"] = "Exercícios";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">Exercícios cadastrados</h2>
+
+            <span class="text-muted">
+                Consulte e gerencie os exercícios disponíveis.
+            </span>
+        </div>
+
+        <a asp-controller="Exercicio"
+           asp-action="Create"
+           class="btn btn-orange">
+
+            + Novo Exercício
+
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Exercício</th>
+                    <th>Grupo Muscular</th>
+                    <th>Séries</th>
+                    <th>Repetições</th>
+                    <th>Carga</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (Exercicio exercicio in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @exercicio.IdExercicio
+                        </td>
+
+                        <td>
+                            @exercicio.NomeExercicio
+                        </td>
+
+                        <td>
+                            @exercicio.GrupoMuscular
+                        </td>
+
+                        <td>
+                            @exercicio.Series
+                        </td>
+
+                        <td>
+                            @exercicio.Repeticoes
+                        </td>
+
+                        <td>
+                            @exercicio.CargaKg kg
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="Exercicio"
+                               asp-action="Update"
+                               asp-route-id="@exercicio.IdExercicio"
+                               class="btn btn-sm btn-outline-orange">
+
+                                Editar
+
+                            </a>
+
+                            <a asp-controller="Exercicio"
+                               asp-action="Delete"
+                               asp-route-id="@exercicio.IdExercicio"
+                               class="btn btn-sm btn-outline-danger">
+
+                                Excluir
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+@using GestaoAcademia.Models
+@model List<Plano>
+
+@{
+    ViewData["Title"] = "Planos";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">Planos cadastrados</h2>
+
+            <span class="text-muted">
+                Consulte e gerencie os planos da academia.
+            </span>
+        </div>
+
+        <a asp-controller="Plano"
+           asp-action="Create"
+           class="btn btn-orange">
+            + Novo Plano
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Plano</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (Plano plano in Model)
+                {
+                    <tr>
+
+                        <td>@plano.IdPlano</td>
+
+                        <td>@plano.NomePlano</td>
+
+                        <td>
+                            R$ @plano.ValorPlano.ToString("F2")
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="Plano"
+                               asp-action="Update"
+                               asp-route-id="@plano.IdPlano"
+                               class="btn btn-sm btn-outline-orange">
+                                Editar
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

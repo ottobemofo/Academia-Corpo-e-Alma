@@ -1,0 +1,91 @@
+@using GestaoAcademia.Models
+@model List<FichaTreino>
+
+@{
+    ViewData["Title"] = "Fichas de Treino";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">Fichas de Treino</h2>
+
+            <span class="text-muted">
+                Consulte e gerencie as fichas de treino dos alunos.
+            </span>
+        </div>
+
+        <a asp-controller="FichaTreino"
+           asp-action="Create"
+           class="btn btn-orange">
+            + Nova Ficha
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Treino</th>
+                    <th>Aluno</th>
+                    <th>Responsável</th>
+                    <th>Data de Criação</th>
+                    <th>Objetivo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (FichaTreino ficha in Model)
+                {
+                    <tr>
+
+                        <td>@ficha.IdTreino</td>
+
+                        <td>@ficha.NomeTreino</td>
+
+                        <td>@ficha.IdAluno</td>
+
+                        <td>@ficha.IdUsuario</td>
+
+                        <td>
+                            @ficha.DataCriacao.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>@ficha.Objetivo</td>
+
+                        <td>
+
+                            <a asp-controller="FichaTreino"
+                               asp-action="Update"
+                               asp-route-id="@ficha.IdTreino"
+                               class="btn btn-sm btn-outline-orange">
+                                Editar
+                            </a>
+
+                            <a asp-controller="FichaTreino"
+                               asp-action="Delete"
+                               asp-route-id="@ficha.IdTreino"
+                               class="btn btn-sm btn-outline-danger">
+                                Excluir
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

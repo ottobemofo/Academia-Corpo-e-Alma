@@ -1,0 +1,126 @@
+@using GestaoAcademia.Models
+@model List<Matricula>
+
+@{
+    ViewData["Title"] = "Matrículas";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">Matrículas cadastradas</h2>
+
+            <span class="text-muted">
+                Consulte e gerencie as matrículas dos alunos.
+            </span>
+        </div>
+
+        <a asp-controller="Matricula"
+           asp-action="Create"
+           class="btn btn-orange">
+
+            + Nova Matrícula
+
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Aluno</th>
+                    <th>Plano</th>
+                    <th>Usuário</th>
+                    <th>Data da Matrícula</th>
+                    <th>Dia do Pagamento</th>
+                    <th>Último Pagamento</th>
+                    <th>Meses em Atraso</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (Matricula matricula in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @matricula.IdMatricula
+                        </td>
+
+                        <td>
+                            @matricula.IdAluno
+                        </td>
+
+                        <td>
+                            @matricula.IdPlano
+                        </td>
+
+                        <td>
+                            @matricula.IdUsuario
+                        </td>
+
+                        <td>
+                            @matricula.DataMatricula.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+                            Dia @matricula.DiaPagamento
+                        </td>
+
+                        <td>
+                            @if (matricula.UltimoPagamento.HasValue)
+                            {
+                                @matricula.UltimoPagamento.Value.ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <span class="text-muted">
+                                    Sem pagamento
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+                            @matricula.MesesEmAtraso
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="Matricula"
+                               asp-action="Update"
+                               asp-route-id="@matricula.IdMatricula"
+                               class="btn btn-sm btn-outline-orange">
+
+                                Editar
+
+                            </a>
+
+                            <a asp-controller="Matricula"
+                               asp-action="Delete"
+                               asp-route-id="@matricula.IdMatricula"
+                               class="btn btn-sm btn-outline-danger">
+
+                                Excluir
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

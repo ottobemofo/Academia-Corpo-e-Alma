@@ -1,0 +1,97 @@
+@using GestaoAcademia.Models
+@model FichaTreino
+
+@{
+    ViewData["Title"] = "Editar Ficha de Treino";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Editar Ficha de Treino
+    </h2>
+
+    <form asp-controller="FichaTreino"
+          asp-action="Update"
+          asp-route-id="@Model.IdTreino"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome do Treino
+            </label>
+
+            <input type="text"
+                   name="NomeTreino"
+                   value="@Model.NomeTreino"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Aluno
+            </label>
+
+            <input type="number"
+                   name="IdAluno"
+                   value="@Model.IdAluno"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Usuário responsável
+            </label>
+
+            <input type="number"
+                   name="IdUsuario"
+                   value="@Model.IdUsuario"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Data de Criação
+            </label>
+
+            <input type="date"
+                   name="DataCriacao"
+                   value="@Model.DataCriacao.ToString("yyyy-MM-dd")"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Objetivo
+            </label>
+
+            <input type="text"
+                   name="Objetivo"
+                   value="@Model.Objetivo"
+                   class="form-control" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+            Salvar alterações
+        </button>
+
+        <a asp-controller="FichaTreino"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>

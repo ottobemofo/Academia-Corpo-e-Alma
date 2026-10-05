@@ -1,0 +1,104 @@
+@using GestaoAcademia.Models
+@model Exercicio
+
+@{
+    ViewData["Title"] = "Cadastrar Exercício";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Novo Exercício
+    </h2>
+
+    <form asp-controller="Exercicio"
+          asp-action="Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome do Exercício
+            </label>
+
+            <input type="text"
+                   name="NomeExercicio"
+                   class="form-control"
+                   placeholder="Ex: Supino reto" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Grupo Muscular
+            </label>
+
+            <input type="text"
+                   name="GrupoMuscular"
+                   class="form-control"
+                   placeholder="Ex: Peitoral" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Séries
+            </label>
+
+            <input type="number"
+                   name="Series"
+                   class="form-control"
+                   min="1"
+                   placeholder="Ex: 4" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Repetições
+            </label>
+
+            <input type="number"
+                   name="Repeticoes"
+                   class="form-control"
+                   min="1"
+                   placeholder="Ex: 10" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Carga (kg)
+            </label>
+
+            <input type="number"
+                   name="CargaKg"
+                   class="form-control"
+                   step="0.01"
+                   min="0"
+                   placeholder="Ex: 40" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar
+
+        </button>
+
+        <a asp-controller="Exercicio"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

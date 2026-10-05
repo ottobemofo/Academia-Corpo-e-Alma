@@ -1,0 +1,101 @@
+@using GestaoAcademia.Models
+@model Matricula
+
+@{
+    ViewData["Title"] = "Nova Matrícula";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Cadastrar Matrícula
+    </h2>
+
+    <form asp-controller="Matricula"
+          asp-action="Create"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Aluno
+            </label>
+
+            <input type="number"
+                   name="IdAluno"
+                   class="form-control"
+                   placeholder="Informe o ID do aluno" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Plano
+            </label>
+
+            <input type="number"
+                   name="IdPlano"
+                   class="form-control"
+                   placeholder="Informe o ID do plano" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Usuário responsável
+            </label>
+
+            <input type="number"
+                   name="IdUsuario"
+                   class="form-control"
+                   placeholder="Informe o ID do usuário" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Data da Matrícula
+            </label>
+
+            <input type="date"
+                   name="DataMatricula"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Dia do Pagamento
+            </label>
+
+            <input type="number"
+                   name="DiaPagamento"
+                   min="1"
+                   max="31"
+                   class="form-control"
+                   placeholder="Ex: 10" />
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar
+
+        </button>
+
+        <a asp-controller="Matricula"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

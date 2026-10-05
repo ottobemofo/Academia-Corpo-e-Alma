@@ -1,0 +1,148 @@
+@using GestaoAcademia.Models
+@model AlunoFormViewModel
+
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Editar Aluno
+    </h2>
+
+
+    <form action="/Aluno/Update/@Model.IdPessoa"
+          method="post">
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome
+            </label>
+
+            <input type="text"
+                   name="Nome"
+                   value="@Model.Nome"
+                   class="form-control"
+                   required />
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Telefone
+            </label>
+
+            <input type="text"
+                   name="Telefone"
+                   value="@Model.Telefone"
+                   class="form-control"
+                   required />
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Plano
+            </label>
+
+            <select name="IdPlano"
+                    class="form-select"
+                    required>
+
+                @if (Model.IdPlano == 1)
+                {
+                    <option value="1" selected>
+                        3 vezes por semana
+                    </option>
+
+                    <option value="2">
+                        Todos os dias
+                    </option>
+                }
+                else
+                {
+                    <option value="1">
+                        3 vezes por semana
+                    </option>
+
+                    <option value="2" selected>
+                        Todos os dias
+                    </option>
+                }
+
+            </select>
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Dia de vencimento
+            </label>
+
+            <input type="number"
+                   name="DiaPagamento"
+                   value="@Model.DiaPagamento"
+                   class="form-control"
+                   min="1"
+                   max="31"
+                   required />
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Último pagamento
+            </label>
+
+            <input type="date"
+                   name="UltimoPagamento"
+                   value="@(Model.UltimoPagamento?.ToString("yyyy-MM-dd"))"
+                   class="form-control" />
+
+        </div>
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Funcionário responsável
+            </label>
+
+            <input type="number"
+                   name="IdUsuario"
+                   value="@Model.IdUsuario"
+                   class="form-control"
+                   required />
+
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-orange">
+
+            Salvar Alterações
+
+        </button>
+
+
+        <a href="/Aluno/Index"
+           class="btn btn-outline-secondary">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>

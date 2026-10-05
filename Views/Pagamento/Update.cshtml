@@ -1,0 +1,79 @@
+@using GestaoAcademia.Models
+@model Pagamento
+
+@{
+    ViewData["Title"] = "Editar Pagamento";
+}
+
+<div class="form-card">
+
+    <h2 class="mb-4">
+        Editar Pagamento
+    </h2>
+
+    <form asp-controller="Pagamento"
+          asp-action="Update"
+          asp-route-id="@Model.IdPagamento"
+          method="post">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Matrícula
+            </label>
+
+            <input type="number"
+                   name="IdMatricula"
+                   value="@Model.IdMatricula"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Data do Pagamento
+            </label>
+
+            <input type="date"
+                   name="DataPagamento"
+                   value="@Model.DataPagamento.ToString("yyyy-MM-dd")"
+                   class="form-control" />
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Forma de Pagamento
+            </label>
+
+            <select name="FormaPagamento"
+                    class="form-select">
+
+                <option value="PIX">
+                    PIX
+                </option>
+
+                <option value="Dinheiro">
+                    Dinheiro
+                </option>
+
+            </select>
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-orange">
+            Salvar alterações
+        </button>
+
+        <a asp-controller="Pagamento"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>

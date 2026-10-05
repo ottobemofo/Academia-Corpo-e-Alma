@@ -1,0 +1,121 @@
+@using GestaoAcademia.Models
+@model List<AlunoListaViewModel>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">
+                Alunos cadastrados
+            </h2>
+
+            <span class="text-muted">
+                Consulte e gerencie os alunos da academia.
+            </span>
+        </div>
+
+        <a href="/Aluno/Create"
+           class="btn btn-orange">
+            + Novo Aluno
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Plano</th>
+                    <th>Vencimento</th>
+                    <th>Último Pagamento</th>
+                    <th>Atraso</th>
+                    <th>Funcionário</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (AlunoListaViewModel aluno in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @aluno.Nome
+                        </td>
+
+                        <td>
+                            @aluno.Telefone
+                        </td>
+
+                        <td>
+                            @aluno.Plano
+                        </td>
+
+                        <td>
+                            Dia @aluno.DiaPagamento
+                        </td>
+
+                        <td>
+                            @if (aluno.UltimoPagamento.HasValue)
+                            {
+                                <span>
+                                    @(aluno.UltimoPagamento.Value.ToString("dd/MM/yyyy"))
+                                </span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+
+                        <td>
+                            @aluno.MesesEmAtraso mês(es)
+                        </td>
+
+                        <td>
+                            @aluno.Funcionario
+                        </td>
+
+                        <td>
+                            @if (aluno.StatusAluno == StatusAluno.Ativo)
+                            {
+                                <span class="status-ativo">
+                                    Ativo
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-inativo">
+                                    Inativo
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+                            <a href="/Aluno/Update/@aluno.IdPessoa"
+                               class="btn btn-sm btn-outline-orange">
+                                Editar
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

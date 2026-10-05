@@ -1,49 +1,106 @@
-@model List<Matricula>
 @{
     ViewData["Title"] = "Início";
 }
-<div class="page-description">
-    Visão geral das mensalidades em atraso na academia.
-</div>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-success alert-custom">
-        <strong>🎉 Excelente!</strong> Nenhuma matrícula em atraso.
-    </div>
-}
-else
-{
-    <div class="form-section">
-        <h3>Mensalidades em atraso</h3>
-        <div class="table-responsive">
-            <table class="table table-custom align-middle">
-                <thead>
-                    <tr>
-                        <th>ALUNO</th>
-                        <th>PLANO</th>
-                        <th>DIA PAGAMENTO</th>
-                        <th>ÚLTIMO PAGAMENTO</th>
-                        <th>MESES ATRASO</th>
-                        <th>AÇÃO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach (var m in Model)
-                {
-                    <tr>
-                        <td>@m.Aluno?.Nome</td>
-                        <td>@m.Plano?.NomePlano</td>
-                        <td>@m.DiaPagamento</td>
-                        <td>@(m.UltimoPagamento?.ToString("dd/MM/yyyy") ?? "—")</td>
-                        <td><span class="status-atraso">@m.MesesEmAtraso</span></td>
-                        <td class="text-end">
-                            <a asp-controller="Pagamentos" asp-action="Create" asp-route-matriculaId="@m.IdMatricula" class="btn btn-sm btn-orange">Registrar pagamento</a>
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+<div class="row g-4">
+
+  
+    <div class="col-md-4">
+        <div class="card-custom home-card">
+
+            <h2>Alunos</h2>
+
+            <p>
+                Cadastro e gerenciamento dos alunos da academia.
+            </p>
+
+            <a href="/Aluno/Index"
+               class="btn btn-orange">
+                Acessar alunos
+            </a>
+
         </div>
     </div>
-}
+
+
+    
+    <div class="col-md-4">
+        <div class="card-custom home-card">
+
+            <h2>Pagamentos</h2>
+
+            <p>
+                Registre e consulte pagamentos dos alunos.
+            </p>
+
+            <a href="/Pagamento/Index"
+               class="btn btn-orange">
+                Acessar pagamentos
+            </a>
+
+        </div>
+    </div>
+
+
+
+    <div class="col-md-4">
+        <div class="card-custom home-card">
+
+            <h2>Planos</h2>
+
+            <p>
+                Consulte os planos disponíveis.
+            </p>
+
+            <a href="/Plano/Index"
+               class="btn btn-orange">
+                Ver planos
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row g-4 mt-1 justify-content-center">
+
+  
+    <div class="col-md-4">
+        <div class="card-custom home-card">
+
+            <h2>Fichas de Treino</h2>
+
+            <p>
+                Consulte as fichas dos alunos.
+            </p>
+
+            <a href="/FichaTreino/Index"
+               class="btn btn-outline-orange">
+                Ver fichas
+            </a>
+
+        </div>
+    </div>
+
+
+    
+    <div class="col-md-4">
+        <div class="card-custom home-card">
+
+            <h2>Exercícios</h2>
+
+            <p>
+                Gerencie os exercícios utilizados nas fichas.
+            </p>
+
+            <a href="/Exercicio/Index"
+               class="btn btn-outline-orange">
+                Ver exercícios
+            </a>
+
+        </div>
+    </div>
+
+</div>

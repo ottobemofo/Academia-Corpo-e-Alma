@@ -1,0 +1,89 @@
+@using GestaoAcademia.Models
+@model List<Usuario>
+
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<div class="card-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="mb-1">Usuários cadastrados</h2>
+
+            <span class="text-muted">
+                Gerencie os usuários que acessam o sistema.
+            </span>
+        </div>
+
+        <a asp-controller="Usuarios"
+           asp-action="Create"
+           class="btn btn-orange">
+
+            + Novo Usuário
+
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-custom">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Perfil</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (Usuario usuario in Model)
+                {
+                    <tr>
+
+                        <td>@usuario.IdPessoa</td>
+
+                        <td>@usuario.Nome</td>
+
+                        <td>@usuario.Email</td>
+
+                        <td>@usuario.Perfil</td>
+
+                        <td>
+
+                            <a asp-controller="Usuarios"
+                               asp-action="Update"
+                               asp-route-id="@usuario.IdPessoa"
+                               class="btn btn-sm btn-outline-orange">
+
+                                Editar
+
+                            </a>
+
+                            <a asp-controller="Usuarios"
+                               asp-action="Delete"
+                               asp-route-id="@usuario.IdPessoa"
+                               class="btn btn-sm btn-outline-danger">
+
+                                Excluir
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

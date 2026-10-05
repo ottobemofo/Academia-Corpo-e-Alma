@@ -1,84 +1,45 @@
-using GestaoAcademia.Data;
-using GestaoAcademia.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using GestaoAcademia.Models;
 
 namespace GestaoAcademia.Controllers;
 
-public class ExerciciosController : Controller
+public class ExercicioController : Controller
 {
-    private readonly AppDbContext _db;
-    public ExerciciosController(AppDbContext db) => _db = db;
-
-    // LISTAR
-    public async Task<IActionResult> Index()
-        => View(await _db.Exercicios.OrderBy(x => x.NomeExercicio).ToListAsync());
-
-    // DETALHES
-    public async Task<IActionResult> Details(int? id)
+    public ActionResult Index()
     {
-        if (id == null) return NotFound();
-        var item = await _db.Exercicios.FindAsync(id.Value);
-        if (item == null) return NotFound();
-        return View(item);
+        List<Exercicio> exercicios = new List<Exercicio>();
+
+        return View(exercicios);
     }
 
-    // CRIAR (GET mostra o formulário, POST salva)
-    public IActionResult Create() => View(new Exercicio());
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Exercicio item)
+    [HttpGet]
+    public ActionResult Create()
     {
-        if (!ModelState.IsValid) return View(item);
-        _db.Exercicios.Add(item);
-        await _db.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return View();
     }
 
-    // EDITAR
-    public async Task<IActionResult> Edit(int? id)
+    [HttpPost]
+    public ActionResult Create(Exercicio model)
     {
-        if (id == null) return NotFound();
-        var item = await _db.Exercicios.FindAsync(id.Value);
-        if (item == null) return NotFound();
-        return View(item);
+        return RedirectToAction("Index");
     }
 
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Exercicio item)
+    [HttpGet]
+    public ActionResult Update(int id)
     {
-        if (id != item.IdExercicio) return NotFound();
-        if (!ModelState.IsValid) return View(item);
-        _db.Update(item);
-        await _db.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        Exercicio exercicio = new Exercicio();
+
+        return View(exercicio);
     }
 
-    // EXCLUIR (GET pede confirmação, POST exclui)
-    public async Task<IActionResult> Delete(int? id)
+    [HttpPost]
+    public ActionResult Update(int id, Exercicio model)
     {
-        if (id == null) return NotFound();
-        var item = await _db.Exercicios.FindAsync(id.Value);
-        if (item == null) return NotFound();
-        return View(item);
+        return RedirectToAction("Index");
     }
 
-    [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public ActionResult Delete(int id)
     {
-        var item = await _db.Exercicios.FindAsync(id);
-        if (item != null)
-        {
-            try
-            {
-                _db.Exercicios.Remove(item);
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                TempData["Erro"] = "Não é possível excluir: existem registros vinculados a este item.";
-            }
-        }
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
 }
