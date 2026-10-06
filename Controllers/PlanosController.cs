@@ -5,26 +5,11 @@ namespace GestaoAcademia.Controllers;
 
 public class PlanoController : Controller
 {
-    private static List<Plano> planos = new List<Plano>
-    {
-        new Plano
-        {
-            IdPlano = 1,
-            NomePlano = "3 vezes por semana",
-            ValorPlano = 70
-        },
-
-        new Plano
-        {
-            IdPlano = 2,
-            NomePlano = "Todos os dias",
-            ValorPlano = 75
-        }
-    };
-
-
     public ActionResult Index()
     {
+        List<Plano> planos =
+            new List<Plano>();
+
         return View(planos);
     }
 
@@ -37,15 +22,8 @@ public class PlanoController : Controller
 
 
     [HttpPost]
-    public ActionResult Create(Plano model)
+    public ActionResult Create(Plano plano)
     {
-        model.IdPlano =
-            planos.Count == 0
-            ? 1
-            : planos.Max(p => p.IdPlano) + 1;
-
-        planos.Add(model);
-
         return RedirectToAction("Index");
     }
 
@@ -53,13 +31,10 @@ public class PlanoController : Controller
     [HttpGet]
     public ActionResult Update(int id)
     {
-        Plano? plano =
-            planos.FirstOrDefault(p => p.IdPlano == id);
+        Plano plano =
+            new Plano();
 
-        if (plano == null)
-        {
-            return NotFound();
-        }
+        plano.IdPlano = id;
 
         return View(plano);
     }
@@ -68,34 +43,8 @@ public class PlanoController : Controller
     [HttpPost]
     public ActionResult Update(
         int id,
-        Plano model)
+        Plano plano)
     {
-        Plano? plano =
-            planos.FirstOrDefault(p => p.IdPlano == id);
-
-        if (plano == null)
-        {
-            return NotFound();
-        }
-
-        plano.NomePlano = model.NomePlano;
-
-        plano.ValorPlano = model.ValorPlano;
-
-        return RedirectToAction("Index");
-    }
-
-
-    public ActionResult Delete(int id)
-    {
-        Plano? plano =
-            planos.FirstOrDefault(p => p.IdPlano == id);
-
-        if (plano != null)
-        {
-            planos.Remove(plano);
-        }
-
         return RedirectToAction("Index");
     }
 }

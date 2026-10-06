@@ -5,12 +5,11 @@ namespace GestaoAcademia.Controllers;
 
 public class PagamentoController : Controller
 {
-    private static List<Pagamento> pagamentos =
-        new List<Pagamento>();
-
-
     public ActionResult Index()
     {
+        List<Pagamento> pagamentos =
+            new List<Pagamento>();
+
         return View(pagamentos);
     }
 
@@ -23,15 +22,8 @@ public class PagamentoController : Controller
 
 
     [HttpPost]
-    public ActionResult Create(Pagamento model)
+    public ActionResult Create(Pagamento pagamento)
     {
-        model.IdPagamento =
-            pagamentos.Count == 0
-            ? 1
-            : pagamentos.Max(p => p.IdPagamento) + 1;
-
-        pagamentos.Add(model);
-
         return RedirectToAction("Index");
     }
 
@@ -39,14 +31,10 @@ public class PagamentoController : Controller
     [HttpGet]
     public ActionResult Update(int id)
     {
-        Pagamento? pagamento =
-            pagamentos.FirstOrDefault(
-                p => p.IdPagamento == id);
+        Pagamento pagamento =
+            new Pagamento();
 
-        if (pagamento == null)
-        {
-            return NotFound();
-        }
+        pagamento.IdPagamento = id;
 
         return View(pagamento);
     }
@@ -55,41 +43,8 @@ public class PagamentoController : Controller
     [HttpPost]
     public ActionResult Update(
         int id,
-        Pagamento model)
+        Pagamento pagamento)
     {
-        Pagamento? pagamento =
-            pagamentos.FirstOrDefault(
-                p => p.IdPagamento == id);
-
-        if (pagamento == null)
-        {
-            return NotFound();
-        }
-
-        pagamento.IdMatricula =
-            model.IdMatricula;
-
-        pagamento.DataPagamento =
-            model.DataPagamento;
-
-        pagamento.FormaPagamento =
-            model.FormaPagamento;
-
-        return RedirectToAction("Index");
-    }
-
-
-    public ActionResult Delete(int id)
-    {
-        Pagamento? pagamento =
-            pagamentos.FirstOrDefault(
-                p => p.IdPagamento == id);
-
-        if (pagamento != null)
-        {
-            pagamentos.Remove(pagamento);
-        }
-
         return RedirectToAction("Index");
     }
 }
