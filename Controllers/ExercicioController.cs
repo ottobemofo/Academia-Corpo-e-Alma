@@ -1,15 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using GestaoAcademia.Models;
+using GestaoAcademia.Repositories;
 
 namespace GestaoAcademia.Controllers;
 
 public class ExercicioController : Controller
 {
+    private IExercicioRepository repository;
+
+    public ExercicioController(IExercicioRepository repository)
+    {
+        this.repository = repository;
+    }
+
     public ActionResult Index()
     {
-        List<Exercicio> exercicios = new List<Exercicio>();
-
-        return View(exercicios);
+        return View(repository.Read());
     }
 
     [HttpGet]
@@ -21,25 +27,27 @@ public class ExercicioController : Controller
     [HttpPost]
     public ActionResult Create(Exercicio model)
     {
+        repository.Create(model);
         return RedirectToAction("Index");
     }
 
     [HttpGet]
     public ActionResult Update(int id)
     {
-        Exercicio exercicio = new Exercicio();
-
-        return View(exercicio);
+        return View(repository.Read(id));
     }
 
     [HttpPost]
     public ActionResult Update(int id, Exercicio model)
     {
+        model.IdExercicio = id;
+        repository.Update(model);
         return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)
     {
+        repository.Delete(id);
         return RedirectToAction("Index");
     }
 }

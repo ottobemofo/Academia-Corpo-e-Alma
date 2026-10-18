@@ -1,5 +1,13 @@
 namespace GestaoAcademia.Models;
 
-public enum StatusAluno { Ativo, Inativo, Trancado }
+public enum StatusAluno
+{
+    Ativo,
+    Inativo
+}
 
-public enum PerfilUsuario { Dono, Funcionario}
+public enum PerfilUsuario
+{
+    Dono,
+    Funcionario
+}

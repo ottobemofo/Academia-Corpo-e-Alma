@@ -3,6 +3,14 @@
 
 @{
     ViewData["Title"] = "Cadastrar Aluno";
+
+    List<Plano> planos =
+        ViewBag.Planos as List<Plano>
+        ?? new List<Plano>();
+
+    List<Usuario> funcionarios =
+        ViewBag.Funcionarios as List<Usuario>
+        ?? new List<Usuario>();
 }
 
 <div class="form-card">
@@ -11,10 +19,8 @@
         Novo Aluno
     </h2>
 
-
     <form action="/Aluno/Create"
           method="post">
-
 
         <div class="mb-3">
 
@@ -60,13 +66,12 @@
                     Selecione o plano
                 </option>
 
-                <option value="1">
-                    3 vezes por semana
-                </option>
-
-                <option value="2">
-                    Todos os dias
-                </option>
+                @foreach (Plano plano in planos)
+                {
+                    <option value="@plano.IdPlano">
+                        @plano.NomePlano - R$ @plano.ValorPlano.ToString("N2")
+                    </option>
+                }
 
             </select>
 
@@ -84,7 +89,6 @@
                    class="form-control"
                    min="1"
                    max="31"
-                   placeholder="Ex: 10"
                    required />
 
         </div>
@@ -109,11 +113,22 @@
                 Funcionário responsável
             </label>
 
-            <input type="number"
-                   name="IdUsuario"
-                   class="form-control"
-                   placeholder="ID do funcionário"
-                   required />
+            <select name="IdUsuario"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Selecione o funcionário
+                </option>
+
+                @foreach (Usuario funcionario in funcionarios)
+                {
+                    <option value="@funcionario.IdPessoa">
+                        @funcionario.Nome
+                    </option>
+                }
+
+            </select>
 
         </div>
 

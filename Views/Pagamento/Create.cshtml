@@ -3,6 +3,10 @@
 
 @{
     ViewData["Title"] = "Registrar Pagamento";
+
+    Dictionary<int, string> alunosMatriculas =
+        ViewBag.AlunosMatriculas as Dictionary<int, string>
+        ?? new Dictionary<int, string>();
 }
 
 <div class="form-card">
@@ -17,14 +21,25 @@
         <div class="mb-3">
 
             <label class="form-label">
-                Matrícula
+                Aluno
             </label>
 
-            <input type="number"
-                   name="IdMatricula"
-                   class="form-control"
-                   placeholder="Informe o ID da matrícula"
-                   required />
+            <select name="IdMatricula"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Selecione o aluno
+                </option>
+
+                @foreach (KeyValuePair<int, string> item in alunosMatriculas)
+                {
+                    <option value="@item.Key">
+                        @item.Value
+                    </option>
+                }
+
+            </select>
 
         </div>
 
@@ -61,7 +76,7 @@
                     PIX
                 </option>
 
-                <option value="Dinheiro">
+                <option value="DINHEIRO">
                     Dinheiro
                 </option>
 

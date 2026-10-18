@@ -3,6 +3,10 @@
 
 @{
     ViewData["Title"] = "Editar Pagamento";
+
+    Dictionary<int, string> alunosMatriculas =
+        ViewBag.AlunosMatriculas as Dictionary<int, string>
+        ?? new Dictionary<int, string>();
 }
 
 <div class="form-card">
@@ -19,15 +23,33 @@
         <div class="mb-3">
 
             <label class="form-label">
-                Matrícula
+                Aluno
             </label>
 
-            <input type="number"
-                   name="IdMatricula"
-                   value="@Model.IdMatricula"
-                   class="form-control" />
+            <select name="IdMatricula"
+                    class="form-select"
+                    required>
+
+                @foreach (KeyValuePair<int, string> item in alunosMatriculas)
+                {
+                    if (item.Key == Model.IdMatricula)
+                    {
+                        <option value="@item.Key" selected>
+                            @item.Value
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@item.Key">
+                            @item.Value
+                        </option>
+                    }
+                }
+
+            </select>
 
         </div>
+
 
         <div class="mb-3">
 
@@ -38,9 +60,11 @@
             <input type="date"
                    name="DataPagamento"
                    value="@Model.DataPagamento.ToString("yyyy-MM-dd")"
-                   class="form-control" />
+                   class="form-control"
+                   required />
 
         </div>
+
 
         <div class="mb-4">
 
@@ -49,29 +73,49 @@
             </label>
 
             <select name="FormaPagamento"
-                    class="form-select">
+                    class="form-select"
+                    required>
 
-                <option value="PIX">
-                    PIX
-                </option>
+                @if (Model.FormaPagamento.ToUpper() == "PIX")
+                {
+                    <option value="PIX" selected>
+                        PIX
+                    </option>
 
-                <option value="Dinheiro">
-                    Dinheiro
-                </option>
+                    <option value="DINHEIRO">
+                        Dinheiro
+                    </option>
+                }
+                else
+                {
+                    <option value="PIX">
+                        PIX
+                    </option>
+
+                    <option value="DINHEIRO" selected>
+                        Dinheiro
+                    </option>
+                }
 
             </select>
 
         </div>
 
+
         <button type="submit"
                 class="btn btn-orange">
+
             Salvar alterações
+
         </button>
+
 
         <a asp-controller="Pagamento"
            asp-action="Index"
            class="btn btn-outline-secondary">
+
             Cancelar
+
         </a>
 
     </form>

@@ -3,6 +3,10 @@
 
 @{
     ViewData["Title"] = "Pagamentos";
+
+    Dictionary<int, string> alunosMatriculas =
+        ViewBag.AlunosMatriculas as Dictionary<int, string>
+        ?? new Dictionary<int, string>();
 }
 
 <div class="card-custom">
@@ -10,34 +14,47 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="mb-1">Pagamentos registrados</h2>
+
+            <h2 class="mb-1">
+                Pagamentos registrados
+            </h2>
 
             <span class="text-muted">
                 Consulte e gerencie os pagamentos dos alunos.
             </span>
+
         </div>
+
 
         <a asp-controller="Pagamento"
            asp-action="Create"
            class="btn btn-orange">
+
             + Novo Pagamento
+
         </a>
 
     </div>
+
 
     <div class="table-responsive">
 
         <table class="table table-custom">
 
             <thead>
+
                 <tr>
+
                     <th>ID</th>
-                    <th>Matrícula</th>
+                    <th>Aluno</th>
                     <th>Data do Pagamento</th>
                     <th>Forma de Pagamento</th>
                     <th>Ações</th>
+
                 </tr>
+
             </thead>
+
 
             <tbody>
 
@@ -49,17 +66,30 @@
                             @pagamento.IdPagamento
                         </td>
 
+
                         <td>
-                            @pagamento.IdMatricula
+
+                            @if (alunosMatriculas.ContainsKey(pagamento.IdMatricula))
+                            {
+                                @alunosMatriculas[pagamento.IdMatricula]
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+
                         </td>
+
 
                         <td>
                             @pagamento.DataPagamento.ToString("dd/MM/yyyy")
                         </td>
 
+
                         <td>
                             @pagamento.FormaPagamento
                         </td>
+
 
                         <td>
 
@@ -67,14 +97,19 @@
                                asp-action="Update"
                                asp-route-id="@pagamento.IdPagamento"
                                class="btn btn-sm btn-outline-orange">
+
                                 Editar
+
                             </a>
+
 
                             <a asp-controller="Pagamento"
                                asp-action="Delete"
                                asp-route-id="@pagamento.IdPagamento"
                                class="btn btn-sm btn-outline-danger">
+
                                 Excluir
+
                             </a>
 
                         </td>

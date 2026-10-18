@@ -3,7 +3,20 @@
 
 @{
     ViewData["Title"] = "Nova Ficha de Treino";
+
+    List<Aluno> alunos =
+        ViewBag.Alunos as List<Aluno>
+        ?? new List<Aluno>();
+
+    List<Usuario> usuarios =
+        ViewBag.Usuarios as List<Usuario>
+        ?? new List<Usuario>();
+
+    List<Exercicio> exercicios =
+        ViewBag.Exercicios as List<Exercicio>
+        ?? new List<Exercicio>();
 }
+
 
 <div class="form-card">
 
@@ -11,9 +24,11 @@
         Cadastrar Ficha de Treino
     </h2>
 
+
     <form asp-controller="FichaTreino"
           asp-action="Create"
           method="post">
+
 
         <div class="mb-3">
 
@@ -24,9 +39,11 @@
             <input type="text"
                    name="NomeTreino"
                    class="form-control"
-                   placeholder="Ex: Treino A - Peito e Tríceps" />
+                   placeholder="Ex: Treino A - Peito e Tríceps"
+                   required />
 
         </div>
+
 
         <div class="mb-3">
 
@@ -34,25 +51,53 @@
                 Aluno
             </label>
 
-            <input type="number"
-                   name="IdAluno"
-                   class="form-control"
-                   placeholder="Informe o ID do aluno" />
+            <select name="IdAluno"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Selecione o aluno
+                </option>
+
+
+                @foreach (Aluno aluno in alunos)
+                {
+                    <option value="@aluno.IdPessoa">
+                        @aluno.Nome
+                    </option>
+                }
+
+            </select>
 
         </div>
+
 
         <div class="mb-3">
 
             <label class="form-label">
-                Usuário responsável
+                Responsável pelo treino
             </label>
 
-            <input type="number"
-                   name="IdUsuario"
-                   class="form-control"
-                   placeholder="Informe o ID do usuário" />
+            <select name="IdUsuario"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Selecione o responsável
+                </option>
+
+
+                @foreach (Usuario usuario in usuarios)
+                {
+                    <option value="@usuario.IdPessoa">
+                        @usuario.Nome - @usuario.Perfil
+                    </option>
+                }
+
+            </select>
 
         </div>
+
 
         <div class="mb-3">
 
@@ -62,11 +107,14 @@
 
             <input type="date"
                    name="DataCriacao"
-                   class="form-control" />
+                   value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                   class="form-control"
+                   required />
 
         </div>
 
-        <div class="mb-4">
+
+        <div class="mb-3">
 
             <label class="form-label">
                 Objetivo
@@ -75,19 +123,71 @@
             <input type="text"
                    name="Objetivo"
                    class="form-control"
-                   placeholder="Ex: Hipertrofia" />
+                   placeholder="Ex: Hipertrofia"
+                   required />
 
         </div>
 
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Exercícios
+            </label>
+
+
+            <div class="border rounded p-3">
+
+                @foreach (Exercicio exercicio
+                    in exercicios)
+                {
+                    <div class="form-check mb-2">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="IdExercicios"
+                               value="@exercicio.IdExercicio"
+                               id="exercicio_@exercicio.IdExercicio" />
+
+
+                        <label class="form-check-label"
+                               for="exercicio_@exercicio.IdExercicio">
+
+                            <strong>
+                                @exercicio.NomeExercicio
+                            </strong>
+
+                            -
+
+                            @exercicio.GrupoMuscular
+
+                            (@exercicio.Series séries x
+                            @exercicio.Repeticoes repetições)
+
+                        </label>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+
         <button type="submit"
                 class="btn btn-orange">
+
             Salvar
+
         </button>
+
 
         <a asp-controller="FichaTreino"
            asp-action="Index"
            class="btn btn-outline-secondary">
+
             Cancelar
+
         </a>
 
     </form>
