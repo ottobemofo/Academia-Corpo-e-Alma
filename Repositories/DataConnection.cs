@@ -9,9 +9,9 @@ public abstract class DataConnection
     public DataConnection()
     {
         string strConn = @"Server=localhost;
-Database=ACADEMIACORPOALMA;
-Trusted_Connection=True;
-TrustServerCertificate=True";
+        Database=ACADEMIACORPOALMA;
+        Trusted_Connection=True;
+        TrustServerCertificate=True";
 
         conn = new SqlConnection(strConn);
         conn.Open();
