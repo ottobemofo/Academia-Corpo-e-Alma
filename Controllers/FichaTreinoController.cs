@@ -7,15 +7,10 @@ namespace GestaoAcademia.Controllers;
 public class FichaTreinoController : Controller
 {
     private IFichaTreinoRepository fichaTreinoRepository;
-
     private IAlunoRepository alunoRepository;
-
     private IUsuarioRepository usuarioRepository;
-
     private IExercicioRepository exercicioRepository;
-
     private IFichaExercicioRepository fichaExercicioRepository;
-
 
     public FichaTreinoController(
         IFichaTreinoRepository fichaTreinoRepository,
@@ -24,30 +19,17 @@ public class FichaTreinoController : Controller
         IExercicioRepository exercicioRepository,
         IFichaExercicioRepository fichaExercicioRepository)
     {
-        this.fichaTreinoRepository =
-            fichaTreinoRepository;
-
-        this.alunoRepository =
-            alunoRepository;
-
-        this.usuarioRepository =
-            usuarioRepository;
-
-        this.exercicioRepository =
-            exercicioRepository;
-
-        this.fichaExercicioRepository =
-            fichaExercicioRepository;
+        this.fichaTreinoRepository = fichaTreinoRepository;
+        this.alunoRepository = alunoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.exercicioRepository = exercicioRepository;
+        this.fichaExercicioRepository = fichaExercicioRepository;
     }
-
 
     public ActionResult Index()
     {
-        return View(
-            fichaTreinoRepository.Read()
-        );
+        return View(fichaTreinoRepository.Read());
     }
-
 
     [HttpGet]
     public ActionResult Create()
@@ -57,81 +39,55 @@ public class FichaTreinoController : Controller
         return View();
     }
 
-
     [HttpPost]
     public ActionResult Create(
         FichaTreino model,
         List<int>? IdExercicios)
     {
-        int idTreino =
-            fichaTreinoRepository.Create(model);
-
+        int idTreino = fichaTreinoRepository.Create(model);
 
         if (IdExercicios != null)
         {
-            foreach (int idExercicio
-                in IdExercicios)
+            foreach (int idExercicio in IdExercicios)
             {
-                FichaExercicio fichaExercicio =
-                    new FichaExercicio();
+                FichaExercicio fichaExercicio = new FichaExercicio();
 
-                fichaExercicio.IdTreino =
-                    idTreino;
+                fichaExercicio.IdTreino = idTreino;
+                fichaExercicio.IdExercicio = idExercicio;
 
-                fichaExercicio.IdExercicio =
-                    idExercicio;
-
-                fichaExercicioRepository.Create(
-                    fichaExercicio
-                );
+                fichaExercicioRepository.Create(fichaExercicio);
             }
         }
-
 
         return RedirectToAction("Index");
     }
 
-
     [HttpGet]
     public ActionResult Update(int id)
     {
-        FichaTreino ficha =
-            fichaTreinoRepository.Read(id);
+        FichaTreino ficha = fichaTreinoRepository.Read(id);
 
         if (ficha == null)
         {
             return NotFound();
         }
 
-
         CarregarListas();
 
-
         List<FichaExercicio> relacoes =
-            fichaExercicioRepository
-                .ReadByTreino(id);
+            fichaExercicioRepository.ReadByTreino(id);
 
+        List<int> exerciciosSelecionados = new List<int>();
 
-        List<int> exerciciosSelecionados =
-            new List<int>();
-
-
-        foreach (FichaExercicio relacao
-            in relacoes)
+        foreach (FichaExercicio relacao in relacoes)
         {
-            exerciciosSelecionados.Add(
-                relacao.IdExercicio
-            );
+            exerciciosSelecionados.Add(relacao.IdExercicio);
         }
 
-
-        ViewBag.ExerciciosSelecionados =
-            exerciciosSelecionados;
-
+        ViewBag.ExerciciosSelecionados = exerciciosSelecionados;
 
         return View(ficha);
     }
-
 
     [HttpPost]
     public ActionResult Update(
@@ -143,39 +99,26 @@ public class FichaTreinoController : Controller
 
         fichaTreinoRepository.Update(model);
 
-
         if (IdExercicios == null)
         {
-            IdExercicios =
-                new List<int>();
+            IdExercicios = new List<int>();
         }
 
-
         List<FichaExercicio> atuais =
-            fichaExercicioRepository
-                .ReadByTreino(id);
+            fichaExercicioRepository.ReadByTreino(id);
 
-
-        foreach (FichaExercicio atual
-            in atuais)
+        foreach (FichaExercicio atual in atuais)
         {
-            bool continuaSelecionado =
-                false;
+            bool continuaSelecionado = false;
 
-
-            foreach (int idExercicio
-                in IdExercicios)
+            foreach (int idExercicio in IdExercicios)
             {
-                if (idExercicio ==
-                    atual.IdExercicio)
+                if (idExercicio == atual.IdExercicio)
                 {
-                    continuaSelecionado =
-                        true;
-
+                    continuaSelecionado = true;
                     break;
                 }
             }
-
 
             if (!continuaSelecionado)
             {
@@ -186,48 +129,32 @@ public class FichaTreinoController : Controller
             }
         }
 
-
-        foreach (int idExercicio
-            in IdExercicios)
+        foreach (int idExercicio in IdExercicios)
         {
-            bool jaExiste =
-                false;
+            bool jaExiste = false;
 
-
-            foreach (FichaExercicio atual
-                in atuais)
+            foreach (FichaExercicio atual in atuais)
             {
-                if (atual.IdExercicio ==
-                    idExercicio)
+                if (atual.IdExercicio == idExercicio)
                 {
                     jaExiste = true;
-
                     break;
                 }
             }
 
-
             if (!jaExiste)
             {
-                FichaExercicio novaRelacao =
-                    new FichaExercicio();
+                FichaExercicio novaRelacao = new FichaExercicio();
 
-                novaRelacao.IdTreino =
-                    id;
+                novaRelacao.IdTreino = id;
+                novaRelacao.IdExercicio = idExercicio;
 
-                novaRelacao.IdExercicio =
-                    idExercicio;
-
-                fichaExercicioRepository.Create(
-                    novaRelacao
-                );
+                fichaExercicioRepository.Create(novaRelacao);
             }
         }
 
-
         return RedirectToAction("Index");
     }
-
 
     public ActionResult Delete(int id)
     {
@@ -236,16 +163,10 @@ public class FichaTreinoController : Controller
         return RedirectToAction("Index");
     }
 
-
     private void CarregarListas()
     {
-        ViewBag.Alunos =
-            alunoRepository.Read();
-
-        ViewBag.Usuarios =
-            usuarioRepository.Read();
-
-        ViewBag.Exercicios =
-            exercicioRepository.Read();
+        ViewBag.Alunos = alunoRepository.Read();
+        ViewBag.Usuarios = usuarioRepository.Read();
+        ViewBag.Exercicios = exercicioRepository.Read();
     }
 }

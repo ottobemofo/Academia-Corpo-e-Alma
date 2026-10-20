@@ -20,14 +20,12 @@ public class PagamentoController : Controller
         this.alunoRepository = alunoRepository;
     }
 
-
     public ActionResult Index()
     {
         ViewBag.AlunosMatriculas = MontarListaAlunos();
 
         return View(pagamentoRepository.Read());
     }
-
 
     [HttpGet]
     public ActionResult Create()
@@ -36,7 +34,6 @@ public class PagamentoController : Controller
 
         return View();
     }
-
 
     [HttpPost]
     public ActionResult Create(Pagamento model)
@@ -47,7 +44,6 @@ public class PagamentoController : Controller
 
         return RedirectToAction("Index");
     }
-
 
     [HttpGet]
     public ActionResult Update(int id)
@@ -64,94 +60,73 @@ public class PagamentoController : Controller
         return View(pagamento);
     }
 
-
     [HttpPost]
     public ActionResult Update(int id, Pagamento model)
     {
-        Pagamento pagamentoAnterior =
-            pagamentoRepository.Read(id);
+        Pagamento pagamentoAnterior = pagamentoRepository.Read(id);
 
         if (pagamentoAnterior == null)
         {
             return NotFound();
         }
 
-        int idMatriculaAnterior =
-            pagamentoAnterior.IdMatricula;
+        int idMatriculaAnterior = pagamentoAnterior.IdMatricula;
 
         model.IdPagamento = id;
 
         pagamentoRepository.Update(model);
 
-
         AtualizarMatricula(idMatriculaAnterior);
-
 
         if (model.IdMatricula != idMatriculaAnterior)
         {
             AtualizarMatricula(model.IdMatricula);
         }
 
-
         return RedirectToAction("Index");
     }
 
-
     public ActionResult Delete(int id)
     {
-        Pagamento pagamento =
-            pagamentoRepository.Read(id);
+        Pagamento pagamento = pagamentoRepository.Read(id);
 
         if (pagamento == null)
         {
             return NotFound();
         }
 
-        int idMatricula =
-            pagamento.IdMatricula;
-
+        int idMatricula = pagamento.IdMatricula;
 
         pagamentoRepository.Delete(id);
 
-
         AtualizarMatricula(idMatricula);
-
 
         return RedirectToAction("Index");
     }
 
-
     private void AtualizarMatricula(int idMatricula)
     {
-        List<Matricula> matriculas =
-            matriculaRepository.Read();
+        List<Matricula> matriculas = matriculaRepository.Read();
 
         Matricula? matriculaEncontrada = null;
-
 
         foreach (Matricula matricula in matriculas)
         {
             if (matricula.IdMatricula == idMatricula)
             {
                 matriculaEncontrada = matricula;
-
                 break;
             }
         }
-
 
         if (matriculaEncontrada == null)
         {
             return;
         }
 
-
-        List<Pagamento> pagamentos =
-            pagamentoRepository.Read();
-
+        List<Pagamento> pagamentos = pagamentoRepository.Read();
 
         DateTime? ultimoPagamento = null;
-
 
         foreach (Pagamento pagamento in pagamentos)
         {
@@ -160,70 +135,48 @@ public class PagamentoController : Controller
                 if (!ultimoPagamento.HasValue ||
                     pagamento.DataPagamento > ultimoPagamento.Value)
                 {
-                    ultimoPagamento =
-                        pagamento.DataPagamento;
+                    ultimoPagamento = pagamento.DataPagamento;
                 }
             }
         }
 
+        matriculaEncontrada.UltimoPagamento = ultimoPagamento;
 
-        matriculaEncontrada.UltimoPagamento =
-            ultimoPagamento;
-
-
-        matriculaEncontrada.MesesEmAtraso =
-            CalcularMesesEmAtraso(
-                ultimoPagamento,
-                matriculaEncontrada.DiaPagamento
-            );
-
-
-        matriculaRepository.Update(
-            matriculaEncontrada
+        matriculaEncontrada.MesesEmAtraso = CalcularMesesEmAtraso(
+            ultimoPagamento,
+            matriculaEncontrada.DiaPagamento
         );
-    }
 
+        matriculaRepository.Update(matriculaEncontrada);
+    }
 
     private int CalcularMesesEmAtraso(
         DateTime? ultimoPagamento,
         int diaPagamento)
     {
-        DateTime hoje =
-            DateTime.Today;
+        DateTime hoje = DateTime.Today;
 
+        int diaVencimento = Math.Min(
+            diaPagamento,
+            DateTime.DaysInMonth(hoje.Year, hoje.Month)
+        );
 
-        int diaVencimento =
-            Math.Min(
-                diaPagamento,
-                DateTime.DaysInMonth(
-                    hoje.Year,
-                    hoje.Month
-                )
-            );
-
-
-        DateTime vencimentoAtual =
-            new DateTime(
-                hoje.Year,
-                hoje.Month,
-                diaVencimento
-            );
-
+        DateTime vencimentoAtual = new DateTime(
+            hoje.Year,
+            hoje.Month,
+            diaVencimento
+        );
 
         DateTime mesQueDeveriaEstarPago;
 
-
         if (hoje < vencimentoAtual)
         {
-            mesQueDeveriaEstarPago =
-                vencimentoAtual.AddMonths(-1);
+            mesQueDeveriaEstarPago = vencimentoAtual.AddMonths(-1);
         }
         else
         {
-            mesQueDeveriaEstarPago =
-                vencimentoAtual;
+            mesQueDeveriaEstarPago = vencimentoAtual;
         }
-
 
         if (!ultimoPagamento.HasValue)
         {
@@ -235,48 +188,33 @@ public class PagamentoController : Controller
             return 0;
         }
 
-
-        DateTime pagamento =
-            ultimoPagamento.Value;
-
+        DateTime pagamento = ultimoPagamento.Value;
 
         int mesesEmAtraso =
-            (mesQueDeveriaEstarPago.Year -
-             pagamento.Year) * 12
-            +
-            (mesQueDeveriaEstarPago.Month -
-             pagamento.Month);
-
+            (mesQueDeveriaEstarPago.Year - pagamento.Year) * 12 +
+            (mesQueDeveriaEstarPago.Month - pagamento.Month);
 
         if (mesesEmAtraso < 0)
         {
             mesesEmAtraso = 0;
         }
 
-
         return mesesEmAtraso;
     }
 
-
     private Dictionary<int, string> MontarListaAlunos()
     {
-        List<Matricula> matriculas =
-            matriculaRepository.Read();
-
-        List<Aluno> alunos =
-            alunoRepository.Read();
-
+        List<Matricula> matriculas = matriculaRepository.Read();
+        List<Aluno> alunos = alunoRepository.Read();
 
         Dictionary<int, string> alunosMatriculas =
             new Dictionary<int, string>();
-
 
         foreach (Matricula matricula in matriculas)
         {
             foreach (Aluno aluno in alunos)
             {
-                if (aluno.IdPessoa ==
-                    matricula.IdAluno)
+                if (aluno.IdPessoa == matricula.IdAluno)
                 {
                     alunosMatriculas.Add(
                         matricula.IdMatricula,
@@ -287,7 +225,6 @@ public class PagamentoController : Controller
                 }
             }
         }
-
 
         return alunosMatriculas;
     }
