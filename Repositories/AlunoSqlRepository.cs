@@ -12,11 +12,13 @@ public class AlunoSqlRepository : DataConnection, IAlunoRepository
         try
         {
             SqlCommand pessoaCmd = new SqlCommand();
+            //insere e retorna o valor do id gerado
             pessoaCmd.CommandText = "INSERT INTO Pessoa (nome) VALUES (@Nome); SELECT CAST(SCOPE_IDENTITY() AS INT);";
             pessoaCmd.Connection = conn;
             pessoaCmd.Transaction = transaction;
             pessoaCmd.Parameters.AddWithValue("@Nome", aluno.Nome);
 
+            //retorna um único valor
             int idPessoa = (int)pessoaCmd.ExecuteScalar();
 
             SqlCommand alunoCmd = new SqlCommand();
@@ -26,7 +28,8 @@ public class AlunoSqlRepository : DataConnection, IAlunoRepository
             alunoCmd.Parameters.AddWithValue("@IdAluno", idPessoa);
             alunoCmd.Parameters.AddWithValue("@Telefone", aluno.Telefone);
             alunoCmd.Parameters.AddWithValue("@StatusAluno", aluno.StatusAluno.ToString().ToUpper());
-
+            
+             //não precisamos ler registros de volta.
             alunoCmd.ExecuteNonQuery();
 
             transaction.Commit();

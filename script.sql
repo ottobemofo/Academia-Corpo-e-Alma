@@ -17,6 +17,9 @@ CREATE TABLE Aluno (
     telefone VARCHAR(20) NOT NULL,
     status_aluno VARCHAR(20) NOT NULL,
 
+    CONSTRAINT CK_Aluno_Status
+        CHECK (status_aluno IN ('EMDIA', 'ATRASADO', 'INATIVO')),
+
     FOREIGN KEY (id_aluno)
         REFERENCES Pessoa(id_pessoa)
 );
@@ -129,9 +132,9 @@ INSERT INTO Pessoa (nome) VALUES ('Rodrigo Oliveira');
 GO
 
 
-INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (1, '(17) 99999-1101', 'ATIVO');
-INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (2, '(17) 98888-2244', 'ATIVO');
-INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (3, '(17) 97777-3322', 'ATIVO');
+INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (1, '(17) 99999-1101', 'EMDIA');
+INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (2, '(17) 98888-2244', 'EMDIA');
+INSERT INTO Aluno (id_aluno, telefone, status_aluno) VALUES (3, '(17) 97777-3322', 'EMDIA');
 GO
 
 
@@ -147,7 +150,7 @@ GO
 
 
 INSERT INTO Matricula (id_aluno, id_plano, id_usuario, data_matricula, dia_pagamento, ultimo_pagamento, meses_em_atraso) VALUES (1, 1, 4, '2026-03-10', 10, '2026-10-10', 0);
-INSERT INTO Matricula (id_aluno, id_plano, id_usuario, data_matricula, dia_pagamento, ultimo_pagamento, meses_em_atraso) VALUES (2, 2, 5, '2026-04-21', 21, '2026-09-21', 1);
+INSERT INTO Matricula (id_aluno, id_plano, id_usuario, data_matricula, dia_pagamento, ultimo_pagamento, meses_em_atraso) VALUES (2, 2, 5, '2026-04-21', 21, '2026-09-21', 0);
 INSERT INTO Matricula (id_aluno, id_plano, id_usuario, data_matricula, dia_pagamento, ultimo_pagamento, meses_em_atraso) VALUES (3, 1, 4, '2026-05-15', 15, '2026-10-15', 0);
 GO
 

@@ -4,5 +4,5 @@ public class Aluno : Pessoa
 {
     public string Telefone { get; set; } = "";
 
-    public StatusAluno StatusAluno { get; set; } = StatusAluno.Ativo;
+    public StatusAluno StatusAluno { get; set; } = StatusAluno.EmDia;
 }

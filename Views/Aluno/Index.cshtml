@@ -88,15 +88,21 @@
                         </td>
 
                         <td>
-                            @if (aluno.StatusAluno == StatusAluno.Ativo)
+                            @if (aluno.StatusAluno == StatusAluno.EmDia)
                             {
-                                <span class="status-ativo">
-                                    Ativo
+                                <span class="badge rounded-pill bg-success">
+                                    Em dia
+                                </span>
+                            }
+                            else if (aluno.StatusAluno == StatusAluno.Atrasado)
+                            {
+                                <span class="badge rounded-pill bg-warning text-dark">
+                                    Atrasado
                                 </span>
                             }
                             else
                             {
-                                <span class="status-inativo">
+                                <span class="badge rounded-pill bg-danger">
                                     Inativo
                                 </span>
                             }

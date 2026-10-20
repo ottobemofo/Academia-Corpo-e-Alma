@@ -2,7 +2,8 @@ namespace GestaoAcademia.Models;
 
 public enum StatusAluno
 {
-    Ativo,
+    EmDia,
+    Atrasado,
     Inativo
 }
 

@@ -12,7 +12,5 @@ public class AlunoFormViewModel
 
     public int DiaPagamento { get; set; }
 
-    public DateTime? UltimoPagamento { get; set; }
-
     public int IdUsuario { get; set; }
 }

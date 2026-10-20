@@ -48,12 +48,6 @@
                 Alunos
             </a>
 
-            <a asp-controller="Plano"
-               asp-action="Index">
-                Planos
-            </a>
-
-
             <a asp-controller="Pagamento"
                asp-action="Index">
                 Pagamentos
@@ -67,6 +61,11 @@
             <a asp-controller="Exercicio"
                asp-action="Index">
                 Exercícios
+            </a>
+
+            <a asp-controller="Plano"
+               asp-action="Index">
+                Planos
             </a>
 
         </nav>
@@ -90,7 +89,7 @@
             @if (ViewContext.RouteData.Values["controller"]?.ToString() != "Home")
             {
                 <a href="/Home/Index"
-                class="btn btn-outline-orange">
+                   class="btn btn-outline-orange">
                     ← Voltar ao Início
                 </a>
             }
